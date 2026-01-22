@@ -7,7 +7,7 @@ const {
   createPet,
   updatePet,
   deletePet,
-} = require("./petHandlers"); 
+} = require("./petHandlers");
 
 // Middleware to parse JSON
 app.use(express.json());

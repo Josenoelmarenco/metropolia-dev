@@ -1,0 +1,8 @@
+.random-box{
+    border: 2px solid black;
+    padding : 12px 16px;
+    margin: 12px 0;
+    width: 200px;
+    font-size: 18px;
+    background-color: white;
+}

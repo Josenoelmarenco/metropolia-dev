@@ -1,0 +1,31 @@
+.id-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    width: 700px;
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    background-color: white;
+}
+
+.id-card img {
+    width: 150px;
+    height: auto;
+    border: 1px solid black;
+    margin-right: 20px;
+}
+
+.id-card .info {
+    flex-grow: 1;
+}
+
+
+.id-card .info p {
+    margin: 6px 0;
+    font-size: 18px;
+}
+.id-card .info p span{
+    font-weight: bold;
+}
