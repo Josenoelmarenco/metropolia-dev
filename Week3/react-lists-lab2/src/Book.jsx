@@ -1,0 +1,20 @@
+// src/Book.jsx
+const Book = (props) => {
+  const { img, title, author } = props.book;
+
+  return (
+    <article className='book'>
+      <img src={img} alt={title} />
+      <h2>{title}</h2>
+      <h4>{author}</h4>
+    </article>
+  );
+};
+
+// const book = {
+// img: "image_url",
+// title: "Book Title",
+// author: "Author Name"
+// };
+
+export default Book;
