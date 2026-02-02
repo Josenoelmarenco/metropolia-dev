@@ -1,1 +1,0 @@
-export const Hello = ()=> <h1>Hello, welxome to my React app!</h1>

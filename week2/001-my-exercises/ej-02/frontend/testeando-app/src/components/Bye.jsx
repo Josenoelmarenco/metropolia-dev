@@ -1,1 +1,0 @@
-export const Bye =()=> <h1>Goodbye! Thanks for visitng.</h1>;
