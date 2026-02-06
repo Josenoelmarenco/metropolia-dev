@@ -2,6 +2,7 @@ const connectDB = require('./config/db');
 const express = require('express');
 const carRouter = require('./routes/carRouter');
 const blogRouter = require('./routes/blogRouter');
+const userRouter = require('./routes/userRouter');
 // const userRouter = require('./routes/userRouter');
 // const blogRouter = require("./routes/blogRouter");
 
@@ -28,6 +29,7 @@ app.get('/', (req, res) => res.send('API Running!'));
 // Use the carRouter for all /cars routes
 app.use('/api/cars', carRouter);
 app.use('/api/blogs', blogRouter);
+app.use('/api/users', userRouter);
 
 // Use the blogRouter for all /cars routes
 
