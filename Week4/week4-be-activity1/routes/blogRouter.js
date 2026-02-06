@@ -1,41 +1,23 @@
-const connectDB = require('./config/db');
 const express = require('express');
-const carRouter = require('./routes/carRouter');
-// const userRouter = require('./routes/userRouter');
-// const blogRouter = require("./routes/blogRouter");
-
 const {
-  requestLogger,
-  unknownEndpoint,
-  errorHandler,
-} = require('./middleware/customMiddleware');
+  getAllBlogs,
+  getBlogById,
+  createBlog,
+  deleteBlog,
+} = require('../controllers/blogController');
 
-// express app
-const app = express();
+const router = express.Router();
 
-connectDB();
+// GET all
+router.get('/', getAllBlogs);
 
-// middleware
-app.use(express.json());
+// GET one by id
+router.get('/:id', getBlogById);
 
-app.use(requestLogger);
+// POST create
+router.post('/', createBlog);
 
-app.get('/', (req, res) => res.send('API Running!'));
+// DELETE one by id
+router.delete('/:id', deleteBlog);
 
-// routes
-
-// Use the carRouter for all /cars routes
-app.use('/api/cars', carRouter);
-
-// Use the blogRouter for all /cars routes
-
-// Use the userRouter for all /users routes
-
-app.use(unknownEndpoint);
-
-app.use(errorHandler);
-
-const port = process.env.PORT || 4000;
-app.listen(port, () =>
-  console.log(`Server is running on http://localhost:${port}`),
-);
+module.exports = router;
