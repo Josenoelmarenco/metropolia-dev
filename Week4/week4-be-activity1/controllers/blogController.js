@@ -1,61 +1,73 @@
-const Car = require('../models/carModel');
+const mongoose = require('mongoose');
+const Blog = require('../models/blogModel');
 
-// GET /cars
-const getAllCars = async (req, res) => {
-  const cars = await Car.find({}).sort({ createdAt: -1 });
-  res.status(200).json(cars);
-};
-
-// POST /cars
-const createCar = async (req, res) => {
-  const newCar = await Car.create({ ...req.body });
-  res.status(201).json(newCar);
-};
-
-// GET /cars/:carId
-const getCarById = async (req, res) => {
-  const { carId } = req.params;
-
-  const car = await Car.findById(carId);
-  if (car) {
-    res.status(200).json(car);
-  } else {
-    res.status(404).json({ message: 'Car not found' });
+// GET /api/blogs
+const getAllBlogs = async (req, res) => {
+  try {
+    const blogs = await Blog.find({}).sort({ createdAt: -1 });
+    res.status(200).json(blogs);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
   }
 };
 
-// PUT /cars/:carId
-const updateCar = async (req, res) => {
-  const { carId } = req.params;
+// GET /api/blogs/:id
+const getBlogById = async (req, res) => {
+  const { id } = req.params;
 
-  const updatedCar = await Car.findOneAndUpdate(
-    { _id: carId },
-    { ...req.body },
-    { new: true },
-  );
-  if (updatedCar) {
-    res.status(200).json(updatedCar);
-  } else {
-    res.status(404).json({ message: 'Car not found' });
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: 'Invalid blog id' });
+  }
+
+  try {
+    const blog = await Blog.findById(id);
+
+    if (!blog) {
+      return res.status(404).json({ error: 'Blog not found' });
+    }
+
+    res.status(200).json(blog);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
   }
 };
 
-// DELETE /cars/:carId
-const deleteCar = async (req, res) => {
-  const { carId } = req.params;
+// POST /api/blogs
+const createBlog = async (req, res) => {
+  const { title, body, author } = req.body;
 
-  const deletedCar = await Car.findOneAndDelete({ _id: carId });
-  if (deletedCar) {
-    res.status(200).json({ message: 'Car deleted successfully' });
-  } else {
-    res.status(404).json({ message: 'Car not found' });
+  try {
+    const blog = await Blog.create({ title, body, author });
+    res.status(201).json(blog);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// DELETE /api/blogs/:id
+const deleteBlog = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: 'Invalid blog id' });
+  }
+
+  try {
+    const blog = await Blog.findByIdAndDelete(id);
+
+    if (!blog) {
+      return res.status(404).json({ error: 'Blog not found' });
+    }
+
+    res.status(200).json(blog);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
   }
 };
 
 module.exports = {
-  getAllCars,
-  getCarById,
-  createCar,
-  updateCar,
-  deleteCar,
+  getAllBlogs,
+  getBlogById,
+  createBlog,
+  deleteBlog,
 };
