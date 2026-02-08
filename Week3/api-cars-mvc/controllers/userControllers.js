@@ -20,12 +20,26 @@ const createUser = (req, res) => {
 
 // GET /users/:userId
 const getUserById = (req, res) => {
-  res.json({ message: 'Hello from getById' });
+  const userId = req.params.userId;
+  const user = User.findById(userId);
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404).json({ message: 'User not found' });
+  }
 };
 
 // PUT /users/:userId
 const updateUser = (req, res) => {
-  res.json({ message: 'Hello from update' });
+  const userId = req.params.userId;
+  const updatedUser = User.updateOneById(userId, { ...req.body });
+
+  if (updatedUser) {
+    res.json(updatedUser);
+  } else {
+    res.status(404).json({ message: 'User not found' });
+  }
 };
 
 // DELETE /users/:userId
