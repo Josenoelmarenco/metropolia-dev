@@ -21,5 +21,6 @@ const userSchema = new mongoose.Schema(
   {
     username: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: true }, // will store hashed password
-
+  },
+  { timestamps: true },
 );
