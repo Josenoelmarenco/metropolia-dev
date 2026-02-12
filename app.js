@@ -64,3 +64,34 @@ app.post('/api/users', async (req, res) => {
     return res.status(500).json({ error: 'Server error' });
   }
 });
+// Login
+app.post('/api/users/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ message: 'username and password are required' });
+  }
+
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      // Don’t leak whether username exists
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    return res.status(200).json({ message: 'Login successful' });
+  } catch (error) {
+    return res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
