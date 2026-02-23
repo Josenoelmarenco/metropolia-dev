@@ -1,19 +1,19 @@
-// use case 1
-localStorage.setItem("username", "Rami");
-localStorage.getItem("username");
-localStorage.removeItem("username");
+// ── case 1: Strings: simple get/set/remove ──────────────────────────────
+localStorage.setItem('username', 'Rami');
+localStorage.getItem('username'); // → "Rami"
+localStorage.removeItem('username');
 
-// use case 2
-const userArray = ["Rami", 25];
-localStorage.setItem("user", JSON.stringify(userArray));
+// ── case 2: Objects / Arrays: must serialize ────────────────────────────
+const userArray = ['Rami', 25];
+localStorage.setItem('user', JSON.stringify(userArray)); // stores '["Rami",25]'
 
-const userData = JSON.parse(localStorage.getItem("user"));
+const userData = JSON.parse(localStorage.getItem('user')); // → ["Rami", 25]
 console.log(userData);
 
-localStorage.removeItem("user");
-localStorage.clear();
+localStorage.removeItem('user');
+localStorage.clear(); // wipe everything
 
-// use case 3
-sessionStorage.setItem("username", "Rami");
-sessionStorage.getItem("username");
-sessionStorage.removeItem("username");
+// ── sessionStorage: same API, cleared when the tab closes ───────
+sessionStorage.setItem('username', 'Rami');
+sessionStorage.getItem('username');
+sessionStorage.removeItem('username');
