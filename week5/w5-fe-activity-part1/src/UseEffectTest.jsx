@@ -3,13 +3,10 @@ import {useEffect, useState } from 'react';
 
 const UseEffectTest = () => {
     const [toggleOne, setToggleOne] = useState(false);
-    useEffect(() => {
-        console.log('UseEffect1 Ran');
-    });
 
     useEffect(() => {
-  console.log('UseEffect1 Ran');
-}, []);
+        console.log('UseEffect1 Ran 😃');
+    }, []);
 
   return (
     <div>
